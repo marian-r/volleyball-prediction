@@ -1,8 +1,10 @@
 
+source("date_time_helpers.R")
+
 read.result = function(fileName) 
 {
 	filePath = paste("data/results/", fileName, ".txt", sep="")
-	read.table(filePath, sep="\t", header=TRUE)
+	read.table(filePath, sep="\t", header=TRUE, stringsAsFactors=FALSE)
 }
 
 read.all.results = function()
@@ -19,8 +21,25 @@ read.all.results = function()
 		newResults = read.result(fileName)
 		results = rbind(results, newResults)
 	}
-
+	
 	results
+}
+
+prepareResults = function(res)
+{
+	res = divideColumnsByTeams(res, "Teams", FALSE)
+	res = divideColumnsByTeams(res, "Result")
+	res = divideColumnsByTeams(res, "Set1")
+	res = divideColumnsByTeams(res, "Set2")
+	
+	res[res$Result_1 > res$Result_2, "Winner"] = "1"
+	res[res$Result_1 < res$Result_2, "Winner"] = "2"
+	res$Winner = as.factor(res$Winner)
+	res$Time = getTimeInMinutes(res$Time)
+
+	res$Date= to.Date(res$Date)
+
+	res[order(res$Date),]
 }
 
 divideColumnsByTeams = function(results, columnName, asInt = TRUE)
