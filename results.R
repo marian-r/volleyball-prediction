@@ -16,8 +16,7 @@ read.all.results = function()
 
 	results = data.frame()
 
-	for (fileName in resultFiles)
-	{
+	for (fileName in resultFiles) {
 		newResults = read.result(fileName)
 		results = rbind(results, newResults)
 	}
@@ -49,13 +48,10 @@ prepareResults = function(res)
 divideColumnsByTeams = function(results, columnName, asInt = TRUE)
 {
 	charVector = as.character(results[,columnName])
+  # Handle NA values
   charVector[which(is.na(charVector))] = "NA-NA"
-  print(charVector)
 	spl = strsplit(charVector , "-")
 	splitVector = unlist(spl)
-
-  print(columnName)
-  print(splitVector)
 
   team1 = splitVector[seq(from=1, to=length(splitVector), by=2)]
   team2 = splitVector[seq(from=2, to=length(splitVector), by=2)]
@@ -63,17 +59,15 @@ divideColumnsByTeams = function(results, columnName, asInt = TRUE)
 	columnName1 = paste(columnName, "_1", sep="")
 	columnName2 = paste(columnName, "_2", sep="")
 
-	if (asInt)
-	{
+	if (asInt) {
 		results[,columnName1] = suppressWarnings(as.integer(team1)) # NA introduced by coercion
-		results[,columnName2] = suppressWarnings(as.integer(team2))
-	}
-	else
-	{
+		results[,columnName2] = suppressWarnings(as.integer(team2)) # NA introduced by coercion
+	} else {
 		results[,columnName1] = team1
 		results[,columnName2] = team2
 	}
 
+  # Remove the original column
   results[,columnName] = NULL
 	results
 }
