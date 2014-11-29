@@ -16,8 +16,7 @@ read.all.history = function()
 	historyTable = list()
 	#historyTable[[as.character(to.Date(date))]] = read.history("world_cup", date);
 
-	for (date in wlDates)
-	{
+	for (date in wlDates) {
 		historyTable[[as.character(to.Date(date))]] = read.history("world_league", date)
 	}
 
@@ -31,8 +30,7 @@ addHistoryToResults = function(history, results)
 	latestDates = getLatestDateForResults(names(history), df)
 	dates = sort(names(history),decreasing=T)
 
-	for (i in 1:nrow(df))
-	{
+	for (i in 1:nrow(df)) {
 		row <- df[i,]
 
 		team1 = as.character(row$Team1)

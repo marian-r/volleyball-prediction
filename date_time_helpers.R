@@ -1,8 +1,10 @@
 
+Sys.setlocale("LC_TIME", "English")
+
 getLatestDateForResults = function(dates, results)
 {
 	latestDates = rep(dates[1], length(results$Date))
-		
+
 	for (date in dates)
 	{
 		isInPast = difftime(results$Date, date) > 0
