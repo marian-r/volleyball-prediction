@@ -1,3 +1,16 @@
+
+# classification
+
+# Majority classifier
+majority = function(learn, test)
+{
+  observed <- test$Winner
+
+  majority.class <- names(which.max(table(learn$Winner)))
+  print(majority.class)
+  print(sum(test$Winner == majority.class) / length(test$Winner))
+}
+
 CA <- function(observed, predicted)
 {
 	t <- table(observed, predicted)
@@ -34,6 +47,28 @@ scale.data <- function(data)
 		if (!is.factor(data[,i]))
 			norm.data[,i] <- scale(data[,i])
 	}
-	
+
 	norm.data
+}
+
+# regression
+
+mae <- function(observed, predicted)
+{
+  mean(abs(observed - predicted))
+}
+
+rmae <- function(observed, predicted, mean.val)
+{
+  sum(abs(observed - predicted)) / sum(abs(observed - mean.val))
+}
+
+mse <- function(observed, predicted)
+{
+  mean((observed - predicted)^2)
+}
+
+rmse <- function(observed, predicted, mean.val)
+{
+  sum((observed - predicted)^2)/sum((observed - mean.val)^2)
 }
