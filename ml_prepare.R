@@ -1,8 +1,18 @@
 
-prepareForML= function(tempDf)
+prepareForClassification = function(tempDf, knownSets = 0)
 {
   mlDf = data.frame(tempDf$Winner)
   names(mlDf) = c("Winner")
+
+  if (knownSets >= 1) {
+    mlDf$Set1_1 = tempDf$Set1_1
+    mlDf$Set1_2 = tempDf$Set1_2
+  }
+  if (knownSets >= 2) {
+    mlDf$Set2_1 = tempDf$Set2_1
+    mlDf$Set2_2 = tempDf$Set2_2
+  }
+
   mlDf$Points1 = tempDf$Points1
   mlDf$Points2 = tempDf$Points2
 
