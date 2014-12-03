@@ -5,10 +5,10 @@ if (!is.null(WD)) {
 }
 
 source("date_time_helpers.R")
-source("results.R")
-source("rankings.R")
-source("match_history.R")
-source("statistics.R")
+source("process/results.R")
+source("process/rankings.R")
+source("process/match_history.R")
+source("process/statistics.R")
 
 processData = function(class = TRUE)
 {
