@@ -17,6 +17,8 @@ prepareForClassification = function(tempDf, knownSets = 0)
   mlDf$Points2 = tempDf$Points2
 
   for (i in 1:nrow(tempDf)) {
+    print(paste("------", i, "------"))
+
     row = tempDf[i,]
 
     pastN = 3
@@ -52,36 +54,10 @@ prepareForClassification = function(tempDf, knownSets = 0)
       tempDf[i,"ResultPM_RankRatio_Cum_2"] = sum(pastNmatches2$ResultPM_RankingRatio)
       tempDf[i,"ResultPM_RankRatio_Mean_2"] = mean(pastNmatches2$ResultPM_RankingRatio)
     }
-
-    #   pastMatches = getPastGamesForBothTeams(tempDf, row, 3)
-    #   team1Wins = (pastMatches$Team1 == row$Team1 & pastMatches$Winner == "1") | (pastMatches$Team2 == row$Team1 & pastMatches$Winner == "2")
-    #   team2Wins = (pastMatches$Team1 == row$Team2 & pastMatches$Winner == "1") | (pastMatches$Team2 == row$Team2 & pastMatches$Winner == "2")
-    #
-    #   t1len = length(team1Wins[team1Wins == TRUE])
-    #   t2len = length(team2Wins[team2Wins == TRUE])
-    #   if (t1len == 0 & t2len == 0) {
-    #     WinnerRatio = NA
-    #   } else {
-    #     WinnerRatio = t1len - t2len
-    #   }
-
-    print(paste("------", i, "------"))
-    #print(team1Wins)
-    #print(team2Wins)
-    #print(WinnerRatio)
-    #print(nrow(pastMatches))
-
-    #tempDf[i,"Winner"] = WinnerRatio
-
   }
 
   mlDf$WinRatio_1 = tempDf$WinRatio_1
   mlDf$WinRatio_2 = tempDf$WinRatio_2
-
-  #tmpMlDf = cbind(mlDf, matchdata$WinRatioA)
-  #tempDf[17:17,]
-  #matchdata[17:17,]
-  #tmpMlDf[tmpMlDf$WinRatio_1 != matchdata$WinRatioA,]
 
   mlDf$ResultPM_Cum_1 = tempDf$ResultPM_Cum_1
   mlDf$ResultPM_Mean_1 = tempDf$ResultPM_Mean_1

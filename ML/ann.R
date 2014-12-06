@@ -20,8 +20,6 @@ trainANN = function(attrModel, learn, test, size = 1, decay = 0, maxit = 100)
   predicted <- predict(nn, norm.test, type = "class")
   predMat <- predict(nn, norm.test, type = "raw")
 
-  print(predMat)
-
   winner1mat = 1 - predMat
   winner2mat = predMat
 
